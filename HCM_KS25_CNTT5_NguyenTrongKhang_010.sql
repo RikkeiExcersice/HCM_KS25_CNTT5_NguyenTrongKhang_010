@@ -152,7 +152,16 @@ FROM
     claims cl ON cl.policy_id = p.policy_id;
 
 -- cau 2
-
+	SELECT 
+    c.full_name, sum(claim_amount) as tong_chi
+FROM
+    customers c
+        JOIN
+    policies p ON c.customer_id = p.customer_id
+        JOIN
+    insurance_packages i ON p.package_id = i.package_id
+        LEFT JOIN
+    claims cl ON cl.policy_id = p.policy_id group by c.customer_id having tong_chi > 500000000 ;
 -- cau 3
 
  	
